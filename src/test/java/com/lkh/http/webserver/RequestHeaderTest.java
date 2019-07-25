@@ -8,9 +8,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RequestHeaderTest {
     // @Date 190720(토)
-    // @Date @TODO 190721(일) 하드코딩 하지 말기. 패턴 뽑아내기
+    // @Date @TODO 190721(일) 하드코딩 하지 말기.   @TODO 190725(목) 패턴 뽑아내기
     // 요구사항 1. HTTP 요청 파싱 하기 TDD
     // input과 output을 지정
+
     @Test
     public void RequestLine_get_요청_파싱() {
         String header = "GET /users HTTP/1.1";     // 메소드, URL, Version
@@ -32,7 +33,7 @@ public class RequestHeaderTest {
 
         // key, value로 변환 해줄 것
         // map에 배열 넣기
-        Map< String, String> result = HttpParser.getQueryString(queryString);
+        Map< String, String> result = HttpParser.getRequestData(queryString);
 
         assertThat(result.get("userId")).isEqualTo("javajigi");
     }
@@ -51,7 +52,7 @@ public class RequestHeaderTest {
         String requestBody = sb.toString();
 
         // body에서 key, value 뽑아내기
-        Map<String, String> result = HttpParser.postRequestBody(requestBody);
+        Map<String, String> result = HttpParser.getRequestData(requestBody);
 
         assertThat(result.get("userId")).isEqualTo("javajigi");
         assertThat(result.get("password")).isEqualTo("password");
